@@ -14,19 +14,19 @@ export default function Hero() {
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-lime-50 border border-lime-200 rounded-full px-4 py-1.5 mb-8 animate-fade-in">
           <span className="w-2 h-2 bg-lime-400 rounded-full animate-pulse" />
-          <span className="text-sm text-gray-700 font-medium">Free for food creators</span>
+          <span className="text-sm text-gray-700 font-medium">Free for all creators</span>
         </div>
 
         {/* Headline */}
         <h1 className="text-5xl md:text-7xl font-bold text-gray-900 tracking-tight leading-[1.1] mb-6 animate-fade-in-up">
-          Your kitchen reels,
+          Your short-form content,
           <br />
           <span className="text-lime-500">optimized to go viral</span>
         </h1>
 
         {/* Value prop */}
         <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-100">
-          ÉCLAT scores your food content before you post, shows you what&apos;s trending in Indian cooking, and gives you the perfect caption — all in one dashboard.
+          ÉCLAT scores your content before you post, shows you what&apos;s trending in your niche, and gives you the perfect caption — all in one dashboard.
         </p>
 
         {/* CTA */}

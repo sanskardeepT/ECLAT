@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ÉCLAT — Optimize Your Reels
 
-## Getting Started
+ÉCLAT is a lightweight, high-performance web application designed for content creators to score, optimize, and schedule their short-form content (Reels/Shorts/TikToks) before posting. It features a deterministic 7-point optimization checklist (HookScore), auto-generated captions, daily popular keyword trends, and a content history diary.
 
-First, run the development server:
+Built using Next.js 15, React, Tailwind CSS, and Supabase Postgres.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Features
+
+- **Upload Guidance (HookScore)**: Input video metrics (length, audio type, overlays) to get a 7-point optimization review graded A-F.
+- **Auto-Generated Captions**: Instantly copy customized caption templates with popular creator hashtags.
+- **Trending Topics**: Stay up to date with a curated list of daily trending keywords and popular video formats fetched directly via YouTube.
+- **Content Diary**: A personal log of all your scored videos to trace engagement and topic popularity patterns over time.
+- **Aesthetic Dark/Light Theme**: A minimalist, high-contrast, professional design with sleek accents and micro-animations.
+
+---
+
+## Setup Instructions
+
+### 1. Database Setup (Supabase)
+
+1. Create a free project at [Supabase](https://supabase.com).
+2. Open the **SQL Editor** in your Supabase Dashboard.
+3. Click **New Query** and copy the contents of the `supabase/migration.sql` file.
+4. Click **Run** to set up the `creators`, `posts`, and `trends` tables along with Row Level Security (RLS) policies.
+5. In your Supabase Dashboard, navigate to **Project Settings → API** to get your **Project URL** and **Anon Key**.
+
+### 2. YouTube Data API Key
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com).
+2. Create a project and enable the **YouTube Data API v3**.
+3. Create an **API Key** credentials page.
+
+### 3. Environment Variables Configuration
+
+Create or update your `.env.local` file in the root directory:
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+YOUTUBE_API_KEY=your-youtube-api-key
+CRON_SECRET=your-cron-secret-for-trends
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. Install Dependencies & Run
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To start the local development server:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Install dependencies
+npm install
 
-## Learn More
+# Start Next.js development server
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to view and test the application!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/` — Application pages and layout routes (next.js app router)
+- `src/components/` — Sleek, modular visual components
+- `src/lib/` — Checklist scoring engine and database helpers
+- `supabase/` — Database migration schema script

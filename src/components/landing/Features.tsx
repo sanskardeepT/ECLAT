@@ -15,7 +15,7 @@ const features = [
       </svg>
     ),
     title: 'Trend Tracker',
-    description: 'See what\'s trending in Indian cooking right now — updated daily from YouTube. Ride the wave, don\'t guess.',
+    description: 'See what\'s trending in your niche right now — updated daily from YouTube. Ride the wave, don\'t guess.',
   },
   {
     icon: (
@@ -45,7 +45,7 @@ export default function Features() {
         <div className="text-center mb-16">
           <span className="text-sm font-medium text-lime-600 uppercase tracking-wider">Features</span>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-3 mb-4">
-            Everything a food creator needs
+            Everything a creator needs to grow
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto">
             Stop guessing what works. ÉCLAT gives you the data and tools to make every reel count.

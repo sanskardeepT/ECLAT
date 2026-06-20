@@ -8,7 +8,7 @@ create table if not exists public.creators (
   id uuid default gen_random_uuid() primary key,
   user_id uuid references auth.users(id) on delete cascade not null unique,
   username text,
-  niche text default 'cooking',
+  niche text default 'general',
   created_at timestamptz default now() not null
 );
 
@@ -27,6 +27,21 @@ create policy "Users can insert own creator profile"
 create policy "Users can update own creator profile"
   on public.creators for update
   using (auth.uid() = user_id);
+
+-- Auto-confirm email when a new user signs up (bypasses manual email confirmation)
+create or replace function public.handle_auto_confirm_user()
+returns trigger as $$
+begin
+  new.email_confirmed_at := now();
+  return new;
+end;
+$$ language plpgsql security definer;
+
+-- Drop trigger if exists, then create
+drop trigger if exists on_auth_user_created_auto_confirm on auth.users;
+create trigger on_auth_user_created_auto_confirm
+  before insert on auth.users
+  for each row execute procedure public.handle_auto_confirm_user();
 
 -- Auto-create creator row when a new user signs up
 create or replace function public.handle_new_user()
@@ -120,7 +135,7 @@ create policy "Users can delete own posts"
 create table if not exists public.trends (
   id uuid default gen_random_uuid() primary key,
   keyword text not null,
-  category text default 'cooking',
+  category text default 'general',
   trend_score numeric(5,2) default 0,
   date date default current_date not null,
   platform text default 'youtube',
@@ -167,15 +182,20 @@ create policy "Anon can read trends"
   to anon
   using (true);
 
--- Allow authenticated users to insert trends (for the API route using anon key)
-create policy "Authenticated can insert trends"
+-- Allow authenticated and anon users to insert trends (for the API route using anon key)
+create policy "Anyone can insert trends"
   on public.trends for insert
-  to authenticated
+  to anon, authenticated
   with check (true);
 
-create policy "Authenticated can delete old trends"
+create policy "Anyone can delete old trends"
   on public.trends for delete
-  to authenticated
+  to anon, authenticated
+  using (true);
+
+create policy "Anyone can update trends"
+  on public.trends for update
+  to anon, authenticated
   using (true);
 
 -- ============================================================
